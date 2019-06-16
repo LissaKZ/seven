@@ -13,7 +13,8 @@ public class Servant extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
         try{
-            statement= DriverManager.getConnection("jdbc:postgresql://localhost:5432/users","postgres","password").createStatement();
+            statement= DriverManager.getConnection("jdbc:postgresql://localhost:5432/prison","postgres","password").createStatement();
+
 
         }catch (SQLException e){e.printStackTrace();
 

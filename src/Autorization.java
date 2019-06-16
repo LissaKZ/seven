@@ -32,10 +32,10 @@ public class Autorization extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    ResultSet result= Servant.statement.executeQuery("SELECT id FROM studs WHERE login=\'"+
+                    ResultSet result= Servant.statement.executeQuery("SELECT mail FROM users WHERE login=\'"+
                             login.getText()+"\' AND password=\'"+password.getText()+"\'");
                     if(result.next()){
-                        JOptionPane.showMessageDialog(null,"Your id is "+result.getInt("id"));
+                        JOptionPane.showMessageDialog(null,"Your id is "+result.getString("mail"));
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
