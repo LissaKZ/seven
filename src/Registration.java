@@ -16,22 +16,34 @@ import java.sql.*;
 import java.util.Base64;
 import java.util.Properties;
 
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
-public class Registration extends JPanel{
+
+public class Registration extends JFrame{
     private JTextField login = new JTextField();
     JTextField mail = new JTextField();
     JPasswordField password =  new JPasswordField();
     JPasswordField oneMoreTime=new JPasswordField();
 
     private JButton signup = new JButton("Register");
+    JButton auth=new JButton("Login");
     JLabel label1=new JLabel("user name");
     JLabel label4=new JLabel("mail");
     JLabel label2=new JLabel("password");
     JLabel label3=new JLabel("password again");
 
     public Registration() {
-        setSize(800,600);
-        setLayout(null);
+        super("Singin Singup");
+        setSize(800,627);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+
+        JPanel panel=new JPanel();
+        panel.setSize(800,600);
+        panel.setLayout(null);
+
+
         login.setBounds(250,100,300,30);
         mail.setBounds(250, 50, 300, 30);
         password.setBounds(250,150,300,30);
@@ -40,16 +52,21 @@ public class Registration extends JPanel{
         label1.setBounds(150,100,100,30);
         label2.setBounds(150,150,100,30);
         label3.setBounds(150 ,200,100,30);
+        label4.setBounds(150,50,100,30);
+        auth.setBounds(250,300,300,30);
 
-        add(mail);
-        add(login);
-        add(password);
-        add(oneMoreTime);
-        add(signup);
-        add(label4);
-        add(label1);
-        add(label2);
-        add(label3);
+        panel.add(mail);
+        panel.add(login);
+        panel.add(password);
+        panel.add(oneMoreTime);
+        panel.add(signup);
+        panel.add(label4);
+        panel.add(label1);
+        panel.add(label2);
+        panel.add(label3);
+        panel.add(auth);
+
+        add(panel);
 
         signup.addActionListener(new ActionListener() {
             @Override
@@ -57,26 +74,31 @@ public class Registration extends JPanel{
                 try {
                     ResultSet result = Servant.statement.executeQuery("SELECT login FROM users WHERE login=\'"+
                             login.getText()+"\'");
-                    if(result.next()){
-                        JOptionPane.showMessageDialog(null,"Пользователь с таким логином уже существует");
-                    }
                     if(!result.next()){
                         emailSender(mail.getText());
-                        Servant.statement.executeQuery("INSERT INTO users (login, mail, password) VALUES ('"+login.getText()
-                                +"','"+mail.getText()+"','"+password.getText()+"')");
+                        CompactPasswordHash cph=CompactPasswordHash.generateHash(new Secret(args[0]))
+                        try {
+                            Servant.statement.executeQuery("INSERT INTO users (login, mail, password) VALUES ('" + login.getText()
+                                    + "','" + mail.getText() + "','" + password.getText() + "')");
+                        }catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        new Conformation(generateNewToken());
+                        dispose();
                     } else {
                         JOptionPane.showMessageDialog(null,"User with the same login has been registered");
                     }
-                } catch (PSQLException ee){
+                } catch (Exception ee){
                     ee.printStackTrace();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                } catch (MessagingException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
                 }
 
+            }
+        });
+        auth.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Autorization();
             }
         });
     }
@@ -101,10 +123,6 @@ public class Registration extends JPanel{
         tr.connect("alekseyevalissa@gmail.com","passwordforproga");
         tr.sendMessage(message,message.getAllRecipients());
         tr.close();
-
-
-
-
     }
 
 
