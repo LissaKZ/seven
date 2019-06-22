@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Autorization extends JFrame {
-
     private JTextField login=new JTextField();
     JPasswordField password=new JPasswordField();
     private JButton singin=new JButton("Login");
@@ -45,12 +44,12 @@ public class Autorization extends JFrame {
                     ResultSet result= Servant.statement.executeQuery("SELECT mail FROM users WHERE login=\'"+
                             login.getText()+"\' AND password=\'"+password.getText()+"\'");
                     if(result.next()){
-
-                        //переход на главное окно
-
-                        JOptionPane.showMessageDialog(null,"Your mail is "+result.getString("mail"));
-
+                        //JOptionPane.showMessageDialog(null,"Your mail is "+result.getString("mail"));
+                       // setVisible(false);
+                        MainWindow.log=login.getText();
                         dispose();
+                        Servant.mw.setVisible(true);
+
                     }else {
                         JOptionPane.showMessageDialog(null,"User not found");
                     }

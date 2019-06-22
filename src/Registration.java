@@ -1,4 +1,6 @@
 import org.postgresql.util.PSQLException;
+import javax.*;
+import java.security.*;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,6 +22,10 @@ import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 
 
 public class Registration extends JFrame{
+    String salt="1234";
+    int iterations=10000;
+    int keyLength=512;
+    String token;
     private JTextField login = new JTextField();
     JTextField mail = new JTextField();
     JPasswordField password =  new JPasswordField();
@@ -76,14 +82,13 @@ public class Registration extends JFrame{
                             login.getText()+"\'");
                     if(!result.next()){
                         emailSender(mail.getText());
-                        CompactPasswordHash cph=CompactPasswordHash.generateHash(new Secret(args[0]))
                         try {
                             Servant.statement.executeQuery("INSERT INTO users (login, mail, password) VALUES ('" + login.getText()
                                     + "','" + mail.getText() + "','" + password.getText() + "')");
                         }catch (SQLException e1) {
                             e1.printStackTrace();
                         }
-                        new Conformation(generateNewToken());
+                        new Conformation(token);
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null,"User with the same login has been registered");
@@ -102,6 +107,7 @@ public class Registration extends JFrame{
             }
         });
     }
+
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
@@ -118,7 +124,8 @@ public class Registration extends JFrame{
         message.setFrom(new InternetAddress("alekseyevalissa"));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
         message.setSubject("Ку");
-        message.setText(generateNewToken());
+        token=generateNewToken();
+        message.setText(token);
         Transport tr=mailSession.getTransport();
         tr.connect("alekseyevalissa@gmail.com","passwordforproga");
         tr.sendMessage(message,message.getAllRecipients());
