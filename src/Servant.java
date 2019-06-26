@@ -55,5 +55,6 @@ public class Servant{
 */
         ResourceBundle bundle=ResourceBundle.getBundle("main_window",new Locale("ru","RU"));
         String s=bundle.getString("controlLabel");
+        System.out.println(s);
     }
 }
