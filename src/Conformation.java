@@ -37,7 +37,6 @@ public class Conformation extends JFrame {
                 if(tok.getText().equals(token)){
                     dispose();
                     Servant.mw.setVisible(true);
-                    MainWindow.users.revalidate();
                 }else {
                     JOptionPane.showMessageDialog(null,"Not correct");
                 }

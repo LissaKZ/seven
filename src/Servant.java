@@ -1,19 +1,21 @@
 import javax.swing.*;
-import java.sql.Connection;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class Servant{
-    public static Statement statement=null;
+    public static Statement statement;
     public static JFrame mw;
-    public static Connection connection=null;
 
     static DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm, dd MMM yyyy");
 
@@ -29,23 +31,29 @@ public class Servant{
     public static Statement getState(){
         Statement state=null;
         try{
-            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/prison",
-                    "postgres","password");
-            state= connection.createStatement();
+            state= DriverManager.getConnection("jdbc:postgresql://localhost:5432/prison",
+                    "postgres","password").createStatement();
 
         }catch (SQLException e){e.printStackTrace();
         }
         return state;
     }
-    public static void main(String[] args){
-        SwingUtilities.invokeLater(new Runnable() {
+    public static void main(String[] args) throws UnsupportedEncodingException {
+       /* SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new Servant();
+                try {
+                    mw=new MainWindow();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 new Autorization();
-                mw=new MainWindow();
+
             }
         });
-
+*/
+        ResourceBundle bundle=ResourceBundle.getBundle("main_window",new Locale("ru","RU"));
+        String s=bundle.getString("controlLabel");
     }
 }
