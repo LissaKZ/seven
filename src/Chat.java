@@ -7,7 +7,7 @@ public class Chat extends JPanel {
     JTable table;
     DefaultTableModel model=new DefaultTableModel();
     Chat(){
-        setSize(200,300);
+        setSize(200,250);
         setLayout(null);
 
         model.addColumn("Username");
@@ -26,7 +26,7 @@ public class Chat extends JPanel {
         pane.setVerticalScrollBarPolicy(
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        pane.setBounds(20,20,150,300);
+        pane.setBounds(20,20,150,230);
         pane.setVisible(true);
         add(pane);
 

@@ -23,7 +23,7 @@ public class Control extends JPanel {
         setSize(200,300);
         setLayout(null);
 
-        text.setBounds(20,20,100,30);
+        text.setBounds(20,20,150,30);
         prisoner.setBounds(20,100,100,30);
         adding.setBounds(20,150,100,30);
         removing.setBounds(20,200,100,30);

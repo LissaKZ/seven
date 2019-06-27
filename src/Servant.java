@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,6 +47,8 @@ public class Servant{
                 try {
                     mw=new MainWindow();
                 } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
                 new Autorization();
