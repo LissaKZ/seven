@@ -45,7 +45,7 @@ public class Servant{
             public void run() {
                 new Servant();
                 try {
-                    mw=new MainWindow();
+                   mw= new MainWindow().mainWindow;
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 } catch (MalformedURLException e) {
