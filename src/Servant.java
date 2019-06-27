@@ -23,9 +23,9 @@ public class Servant{
         statement=Servant.getState();
 
     }
-    public static String getTime(){
+    public static ZonedDateTime getTime(){
         ZonedDateTime time= ZonedDateTime.now(ZoneId.of("Europe/Moscow"));
-        return format.format(time);
+        return time;
 
     }
     public static Statement getState(){
@@ -39,7 +39,7 @@ public class Servant{
         return state;
     }
     public static void main(String[] args) throws UnsupportedEncodingException {
-       /* SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new Servant();
@@ -52,9 +52,5 @@ public class Servant{
 
             }
         });
-*/
-        ResourceBundle bundle=ResourceBundle.getBundle("main_window",new Locale("ru","RU"));
-        String s=bundle.getString("controlLabel");
-        System.out.println(s);
     }
 }

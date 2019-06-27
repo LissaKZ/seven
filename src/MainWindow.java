@@ -23,7 +23,7 @@ public class MainWindow extends JFrame {
         setVisible(false);
 
         table=new Prison();
-        JPanel control=new Control(log);
+        JPanel control=new Control();
         users=new Chat();
         JPanel anim=new JPanel();
         lang=new Languadge();
@@ -39,11 +39,5 @@ public class MainWindow extends JFrame {
         add(users);
         add(table);
         add(lang);
-    }
-    public static void RefreshTable(){
-        table=new Prison();
-        //table.setBounds(20,600,700,300);
-        table.revalidate();
-        table.repaint();
     }
 }

@@ -26,7 +26,7 @@ public class Registration extends JFrame{
     int iterations=10000;
     int keyLength=512;
     String token;
-    private JTextField login = new JTextField();
+    static JTextField login = new JTextField();
     JTextField mail = new JTextField();
     JPasswordField password =  new JPasswordField();
     JPasswordField oneMoreTime=new JPasswordField();

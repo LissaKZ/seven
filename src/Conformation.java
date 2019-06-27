@@ -35,6 +35,7 @@ public class Conformation extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(tok.getText().equals(token)){
+                    MainWindow.log=Registration.login.getText();
                     dispose();
                     Servant.mw.setVisible(true);
                 }else {

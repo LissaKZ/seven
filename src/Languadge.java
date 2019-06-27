@@ -8,7 +8,6 @@ public class Languadge extends JPanel{
     JComboBox box;
     ResourceBundle bundle;
     Languadge(){
-        System.out.println("beg");
         setSize(100,30);
         setLayout(null);
 

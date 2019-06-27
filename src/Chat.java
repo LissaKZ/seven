@@ -22,8 +22,13 @@ public class Chat extends JPanel {
             e.printStackTrace();
         }
         table= new JTable(model);
-        table.setBounds(20,20,150,300);
+        JScrollPane pane=new JScrollPane(table);
+        pane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        add(table);
+        pane.setBounds(20,20,150,300);
+        pane.setVisible(true);
+        add(pane);
+
     }
 }
